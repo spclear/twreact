@@ -29,11 +29,7 @@ const App = () => {
   const [data, setData] = useState([...postsData]); 
 
   const deletePost = (id) => {
-    const postId = data.findIndex(item => item.id === id);
-    let newData = [...data];
-
-    newData.splice(postId, 1);
-    setData(newData);
+    setData(data => data.filter(item => item.id !== id));
   }
 
   return (
