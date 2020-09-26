@@ -1,21 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './postitem.module.css';
 
-const PostItem = ({ postText, isLiked, isStarred, deletePost }) => {
-  const [starred, setStarred] = useState(isStarred);
-  const [liked, setLiked] = useState(isLiked);
-
-  const starredClass = starred ? ` ${styles.starred}` : '';
-  const likedClass = liked ? ` ${styles.liked}` : '';
+const PostItem = ({ postText, isLiked, isStarred, ...props }) => {
+  const starredClass = isStarred ? ` ${styles.starred}` : '';
+  const likedClass = isLiked ? ` ${styles.liked}` : '';
 
   const onToggleStar = () => {
-    setStarred(prev => !prev);
+    props.onPostStar();
+  }
+  const onToggleLike = () => {
+    props.onPostLike();
+  }
+  const onPostDelete = () => {
+    props.onPostDelete();
   }
 
-  const onToggleLike = () => {
-    setLiked(prev => !prev);
-  }
-  
   return (
     <div className={styles.item}>
       <p
@@ -33,7 +32,7 @@ const PostItem = ({ postText, isLiked, isStarred, deletePost }) => {
         </button>
         <button
           className={`${styles.delete}`}
-          onClick={deletePost}
+          onClick={onPostDelete}
         >
           <i className="fa fa-trash"/>
         </button>
