@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import Header from './Header/Header';
 import PostAdd from './Main/PostAdd/PostAdd';
 import PostList from './Main/PostsList/PostList';
 
 const App = () => {
-  const postsData = [
+  let postsData = [
     {
       postText: "Learning JavaScript and ReactJS right now",
       isLiked: false, 
@@ -26,6 +26,16 @@ const App = () => {
     },
   ];
 
+  const [data, setData] = useState([...postsData]); 
+
+  const deletePost = (id) => {
+    const postId = data.findIndex(item => item.id === id);
+    let newData = [...data];
+
+    newData.splice(postId, 1);
+    setData(newData);
+  }
+
   return (
     <div className="appWrapper">
       <Header
@@ -33,7 +43,10 @@ const App = () => {
         postsCount="3"
         postsLiked="1"
       />
-      <PostList postsData={postsData} />
+      <PostList
+        postsData={data}
+        deletePost={deletePost}
+      />
       <PostAdd />
     </div>
   );

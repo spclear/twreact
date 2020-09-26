@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './postitem.module.css';
 
-const PostItem = ({ postText, isLiked, isStarred }) => {
+const PostItem = ({ postText, isLiked, isStarred, deletePost }) => {
   const [starred, setStarred] = useState(isStarred);
   const [liked, setLiked] = useState(isLiked);
 
@@ -15,7 +15,7 @@ const PostItem = ({ postText, isLiked, isStarred }) => {
   const onToggleLike = () => {
     setLiked(prev => !prev);
   }
-
+  
   return (
     <div className={styles.item}>
       <p
@@ -31,7 +31,10 @@ const PostItem = ({ postText, isLiked, isStarred }) => {
         >
           <i className="fa fa-star"/>
         </button>
-        <button className={`${styles.delete}`}>
+        <button
+          className={`${styles.delete}`}
+          onClick={deletePost}
+        >
           <i className="fa fa-trash"/>
         </button>
         <i className={`${styles.heart}${likedClass} fa fa-heart`} />
